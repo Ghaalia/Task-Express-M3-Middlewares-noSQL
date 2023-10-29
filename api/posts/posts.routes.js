@@ -5,6 +5,7 @@ const {
   postsUpdate,
   postsDelete,
   postsCreate,
+  fetchPost,
 } = require("./posts.controllers");
 
 router.param("postId", async (req, res, next, postId) => {

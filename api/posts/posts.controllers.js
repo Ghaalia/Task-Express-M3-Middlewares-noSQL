@@ -10,30 +10,18 @@ exports.postsCreate = async (req, res, next) => {
 };
 
 exports.postsDelete = async (req, res, next) => {
-  const { postId } = req.params;
   try {
-    const foundPost = await Post.findById(postId);
-    if (foundPost) {
-      await foundPost.deleteOne();
-      res.status(204).end();
-    } else {
-      res.status(404).json({ message: "post not found" });
-    }
+    await req.post.deleteOne();
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
 };
 
 exports.postsUpdate = async (req, res, next) => {
-  const { postId } = req.params;
   try {
-    const foundPost = await Post.findById(postId);
-    if (foundPost) {
-      await foundPost.updateOne(req.body);
-      res.status(204).end();
-    } else {
-      res.status(404).json({ message: "post not found" });
-    }
+    await req.post.updateOne(req.body);
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
