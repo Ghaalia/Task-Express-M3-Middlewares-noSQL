@@ -47,3 +47,16 @@ exports.postsGet = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.fetchPost = async (id, next) => {
+  try {
+    const post = await Post.findById(id);
+    if (post) {
+      return post;
+    } else {
+      next({ message: "post not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
