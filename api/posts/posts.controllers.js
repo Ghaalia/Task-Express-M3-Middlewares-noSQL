@@ -42,7 +42,7 @@ exports.fetchPost = async (id, next) => {
     if (post) {
       return post;
     } else {
-      next({ message: "post not found" });
+      next({ message: "post not found", status: 404 });
     }
   } catch (error) {
     next(error);
