@@ -1,4 +1,5 @@
 const express = require("express");
+const upload = require("../../middleware/multer");
 const router = express.Router();
 const {
   postsGet,
@@ -15,7 +16,7 @@ router.param("postId", async (req, res, next, postId) => {
 });
 
 router.get("/", postsGet);
-router.post("/", postsCreate);
+router.post("/", upload.single("image"), postsCreate);
 router.delete("/:postId", postsDelete);
 router.put("/:postId", postsUpdate);
 

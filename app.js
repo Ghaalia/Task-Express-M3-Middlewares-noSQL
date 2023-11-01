@@ -2,22 +2,25 @@ const express = require("express");
 const app = express();
 const postsRoutes = require("./api/posts/posts.routes");
 const connectDb = require("./database");
+const { NotFound } = require("./middleware/NotFound");
+const path = require("path");
+const { ErrorHandler } = require("./middleware/ErrorHandler");
+const morgan = require("morgan");
+const cors = require("cors");
+
+app.use(cors());
 app.use(express.json());
+app.use(morgan("dev"));
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method);
-  next();
-});
+// app.use("/posts", postsRoutes);
 
-app.use("/posts", postsRoutes);
+app.use("/media", express.static(path.join(__dirname, "media")));
 
-app.use((req, res, next) => {
-  res.status(404).json("404 ERROR Path NOT Found !!!");
-});
+// Not Found Path
+app.use(NotFound);
 
-app.use((error, req, res, next) => {
-  res.status(error.status || 500).json({ message: error.message });
-});
+// Error Handler
+app.use(ErrorHandler);
 
 connectDb();
 app.listen(8000, () => {
