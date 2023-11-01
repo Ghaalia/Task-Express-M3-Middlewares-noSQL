@@ -12,9 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// app.use("/posts", postsRoutes);
-
 app.use("/media", express.static(path.join(__dirname, "media")));
+
+app.use("/posts", postsRoutes);
 
 // Not Found Path
 app.use(NotFound);
